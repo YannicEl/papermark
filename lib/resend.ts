@@ -42,7 +42,7 @@ export const sendEmail = async ({
   try {
     const { data, error } = await resend.emails.send({
       from: "office@lexaru.de",
-      to: test ? "delivered@resend.dev" : to,
+      to,
       cc: cc,
       subject,
       react,

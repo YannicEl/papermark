@@ -84,7 +84,7 @@ export function usePlan() {
     ? parsePlan(plan.plan)
     : { plan: null, trial: null, old: false };
 
-  parsedPlan.plan = "datarooms";
+  parsedPlan.plan = "datarooms" as BasePlan;
 
   return {
     plan: parsedPlan.plan,
