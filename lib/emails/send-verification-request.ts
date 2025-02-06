@@ -1,3 +1,5 @@
+import { log } from "console";
+
 import LoginLink from "@/components/emails/verification-link";
 
 import { sendEmail } from "@/lib/resend";
@@ -17,6 +19,7 @@ export const sendVerificationRequestEmail = async (params: {
 
   const verificationUrl = `${process.env.NEXTAUTH_URL}/verify?${verificationUrlParams}`;
   const emailTemplate = LoginLink({ url: verificationUrl });
+
   try {
     await sendEmail({
       to: email as string,

@@ -41,18 +41,9 @@ export const sendEmail = async ({
 
   try {
     const { data, error } = await resend.emails.send({
-      from: marketing
-        ? "Marc from Papermark <marc@ship.papermark.io>"
-        : system
-          ? "Papermark <system@papermark.io>"
-          : verify
-            ? "Papermark <system@verify.papermark.io>"
-            : !!scheduledAt
-              ? "Marc Seitz <marc@papermark.io>"
-              : "Marc from Papermark <marc@papermark.io>",
+      from: "office@lexaru.de",
       to: test ? "delivered@resend.dev" : to,
       cc: cc,
-      replyTo: marketing ? "marc@papermark.io" : undefined,
       subject,
       react,
       scheduledAt,

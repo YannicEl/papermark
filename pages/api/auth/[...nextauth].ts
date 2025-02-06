@@ -25,31 +25,6 @@ export const authOptions: NextAuthOptions = {
     error: "/login",
   },
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      allowDangerousEmailAccountLinking: true,
-    }),
-    LinkedInProvider({
-      clientId: process.env.LINKEDIN_CLIENT_ID as string,
-      clientSecret: process.env.LINKEDIN_CLIENT_SECRET as string,
-      authorization: {
-        params: { scope: "openid profile email" },
-      },
-      issuer: "https://www.linkedin.com/oauth",
-      jwks_endpoint: "https://www.linkedin.com/oauth/openid/jwks",
-      profile(profile, tokens) {
-        const defaultImage =
-          "https://cdn-icons-png.flaticon.com/512/174/174857.png";
-        return {
-          id: profile.sub,
-          name: profile.name,
-          email: profile.email,
-          image: profile.picture ?? defaultImage,
-        };
-      },
-      allowDangerousEmailAccountLinking: true,
-    }),
     EmailProvider({
       async sendVerificationRequest({ identifier, url }) {
         if (process.env.NODE_ENV === "development") {
@@ -67,14 +42,6 @@ export const authOptions: NextAuthOptions = {
             email: identifier,
           });
         }
-      },
-    }),
-    PasskeyProvider({
-      tenant: hanko,
-      async authorize({ userId }) {
-        const user = await prisma.user.findUnique({ where: { id: userId } });
-        if (!user) return null;
-        return user;
       },
     }),
   ],

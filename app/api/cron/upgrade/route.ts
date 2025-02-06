@@ -126,24 +126,6 @@ export async function POST(req: Request) {
             ]);
           }
         }
-
-        // downgrade the user to free if team has 0 day left on trial
-        if (teamDaysLeft <= 0) {
-          return await Promise.allSettled([
-            log({
-              message: `Downgrade to free for user: *${id}* is expiring in ${teamDaysLeft} days, downgraded.`,
-              type: "cron",
-            }),
-            prisma.user.update({
-              where: { email: userEmail },
-              data: { plan: "free" },
-            }),
-            prisma.team.update({
-              where: { id },
-              data: { plan: "free" },
-            }),
-          ]);
-        }
       }),
     );
     return NextResponse.json(results);
