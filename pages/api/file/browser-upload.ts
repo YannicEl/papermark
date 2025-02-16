@@ -52,6 +52,7 @@ export default async function handler(
 
         return {
           allowedContentTypes: [
+            "video/mp4",
             "application/pdf",
             "application/vnd.ms-excel",
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
